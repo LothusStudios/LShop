@@ -2,7 +2,7 @@ plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("net.minecrell.plugin-yml.bukkit") version "0.3.0"
-    id("com.palantir.git-version") version "0.12.3" // Add this line
+    id("com.palantir.git-version") version "0.12.3"
 }
 
 group = "studio.lothus"
@@ -12,15 +12,20 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 repositories {
     mavenCentral()
 
-    maven {
-        url = uri("https://libraries.minecraft.net/")
-    }
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
+    maven("https://oss.sonatype.org/content/repositories/central")
 }
+
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.32")
-    compileOnly(files("../libs/CarbonSpigot.jar"))
-
+    compileOnly(files("F:/API/carbonspigot.jar"))
+    implementation ("io.socket:socket.io-client:2.1.0")
+    implementation("com.squareup.okhttp3:okhttp:3.12.0")
+    implementation("org.bstats:bstats-bungeecord:3.0.2")
+    compileOnly("net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
     compileOnly("org.projectlombok:lombok:1.18.32")
     compileOnly("com.google.code.gson:gson:2.10.1")
 
