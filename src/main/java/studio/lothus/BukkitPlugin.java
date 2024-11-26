@@ -3,16 +3,20 @@ package studio.lothus;
 import org.bukkit.plugin.java.JavaPlugin;
 import studio.lothus.api.ConfigManager;
 import studio.lothus.api.scheduler.Scheduler;
+import studio.lothus.translation.TranslationManager;
 
 public class BukkitPlugin extends JavaPlugin {
 
     private LothusAPI lothusAPI;
     private Scheduler scheduler;
+    private TranslationManager translationManager;
     private App app;
 
     @Override
     public void onEnable() {
         super.onEnable();
+
+        translationManager = new TranslationManager(this);
 
         ConfigManager.setup(this);
 
@@ -20,7 +24,8 @@ public class BukkitPlugin extends JavaPlugin {
 
         String token = ConfigManager.getSecret();
         if (token == null || token.isEmpty()) {
-            getLogger().severe("Token não encontrado ou inválido no arquivo de configuração.");
+            String ApiNotFound = translationManager.getTranslation("pt-br", "apinotfound");
+            getLogger().info(ApiNotFound);
             return;
         }
 

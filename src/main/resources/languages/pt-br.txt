@@ -1,0 +1,1 @@
+apinotfound: "Token não encontrado ou inválido no arquivo de configuração."
