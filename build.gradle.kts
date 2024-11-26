@@ -2,12 +2,12 @@ plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("net.minecrell.plugin-yml.bukkit") version "0.3.0"
+    id("com.palantir.git-version") version "0.12.3" // Add this line
 }
 
 group = "studio.lothus"
 version = "1.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
-
 
 repositories {
     mavenCentral()
@@ -38,7 +38,6 @@ bukkit {
     website = "https://lothus.shop"
     load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.STARTUP
 }
-
 
 tasks {
     shadowJar {
