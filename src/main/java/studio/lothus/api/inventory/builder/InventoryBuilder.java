@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import studio.lothus.api.inventory.item.InventoryClickHandler;
 import studio.lothus.api.inventory.item.InventoryItem;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class InventoryBuilder implements Listener {
     }
 
     public InventoryBuilder addItem(int slot, ItemStack item, InventoryClickHandler clickHandler) {
-        items.put(slot, new InventoryItem(item, clickHandler));
+        items.put(slot, new InventoryItem(item, (InventoryItem) clickHandler));
         inventory.setItem(slot, item);
         return this;
     }

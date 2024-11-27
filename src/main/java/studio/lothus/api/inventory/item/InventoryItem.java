@@ -1,5 +1,7 @@
 package studio.lothus.api.inventory.item;
 
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class InventoryItem {
@@ -18,5 +20,8 @@ public class InventoryItem {
 
     public InventoryItem getClickHandler() {
         return clickHandler;
+    }
+
+    public void onClick(Player whoClicked, InventoryClickEvent event) {
     }
 }
