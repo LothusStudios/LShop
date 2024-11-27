@@ -1,6 +1,7 @@
 package studio.lothus.model;
 
 public class Order {
+
     private String client_identifier;
     private String client_email;
     private String client_name;

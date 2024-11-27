@@ -8,6 +8,7 @@ public class InventoryItem {
 
     private final ItemStack item;
     private final InventoryItem clickHandler;
+    private final ClickHa
 
     public InventoryItem(ItemStack item, InventoryItem clickHandler) {
         this.item = item;
@@ -22,6 +23,8 @@ public class InventoryItem {
         return clickHandler;
     }
 
+    public ClickHandler
     public void onClick(Player whoClicked, InventoryClickEvent event) {
+
     }
 }

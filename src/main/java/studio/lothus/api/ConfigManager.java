@@ -3,6 +3,8 @@ package studio.lothus.api;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import studio.lothus.BukkitPlugin;
 
 import java.io.File;
@@ -26,6 +28,10 @@ public class ConfigManager {
                 Files.createFile(propertiesFile.toPath());
                 fileConfiguration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(propertiesFile);
                 fileConfiguration.set("secret", "SUA-TOKEN-AQUI!");
+                fileConfiguration.set("hologram.world", "world");
+                fileConfiguration.set("hologram.x", 0);
+                fileConfiguration.set("hologram.y", 100);
+                fileConfiguration.set("hologram.z", 0);
                 save();
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -62,5 +68,21 @@ public class ConfigManager {
 
     public static String getSecret() {
         return get().getString("secret");
+    }
+
+    public static void setHologramLocation(Location location) {
+        get().set("hologram.world", location.getWorld().getName());
+        get().set("hologram.x", location.getX());
+        get().set("hologram.y", location.getY());
+        get().set("hologram.z", location.getZ());
+        save();
+    }
+
+    public static Location getHologramLocation() {
+        String worldName = get().getString("hologram.world");
+        double x = get().getDouble("hologram.x");
+        double y = get().getDouble("hologram.y");
+        double z = get().getDouble("hologram.z");
+        return new Location(Bukkit.getWorld(worldName), x, y, z);
     }
 }

@@ -32,6 +32,9 @@ public class Scheduler {
         }
     }
 
+    public void Run() {
+
+    }
 
     public void cancelAllTasks() {
         for (BukkitTask task : tasks.values()) {
