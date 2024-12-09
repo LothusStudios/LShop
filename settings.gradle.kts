@@ -1,2 +1,2 @@
-rootProject.name = "lothus"
+rootProject.name = "LSDelivery"
 

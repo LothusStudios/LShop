@@ -1,57 +1,41 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
-    id("java")
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("net.minecrell.plugin-yml.bukkit") version "0.3.0"
-    id("com.palantir.git-version") version "0.12.3"
+    kotlin("jvm") version "1.8.10"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-group = "studio.lothus"
+group = "studio.lothus.delivery"
 version = "1.0-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
-
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven("https://oss.sonatype.org/content/repositories/snapshots")
-    maven("https://oss.sonatype.org/content/repositories/central")
-}
-
-
-dependencies {
-    annotationProcessor("org.projectlombok:lombok:1.18.32")
-    compileOnly(files("F:/API/carbonspigot.jar"))
-    implementation ("io.socket:socket.io-client:2.1.0")
-    implementation("com.squareup.okhttp3:okhttp:3.12.0")
-    implementation("org.bstats:bstats-bungeecord:3.0.2")
-    compileOnly("net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
-    compileOnly("org.projectlombok:lombok:1.18.32")
-    compileOnly("com.google.code.gson:gson:2.10.1")
-
-    implementation("org.jetbrains:annotations:24.1.0")
-}
-
-val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
-val details = versionDetails()
-
-bukkit {
-    main = "studio.lothus.App"
-    name = "LothusApp"
-    version = "0.1-${details.gitHash.substring(0, 6)}"
-    description = "Plugin feito para gerenciar a loja lothus.shop"
-    website = "https://lothus.shop"
-    load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.STARTUP
-}
-
-tasks {
-    shadowJar {
-        dependencies {
-            exclude("org.projectlombok:lombok:1.18.32")
-        }
+    maven {
+        url = uri("https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp")
+    }
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots")
     }
 }
 
+dependencies {
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("me.devnatan:inventory-framework-platform-bukkit:3.2.0")
+
+    compileOnly("org.projectlombok:lombok:1.18.36")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
+    compileOnly(files("F:/API/carbonspigot.jar"))
+}
+
 tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
+val shadowJarTask = tasks.getByName<ShadowJar>("shadowJar")
+
+tasks.register<Copy>("copyToPluginsDir") {
+        dependsOn(shadowJarTask)
+        from(shadowJarTask.outputs.files)
 }
