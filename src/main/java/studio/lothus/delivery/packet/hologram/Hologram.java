@@ -27,32 +27,27 @@ public class Hologram {
     }
 
     public void clearLines() {
-        // Limpar todas as linhas e IDs de entidades
         lines.clear();
         entityIds.clear();
     }
 
     public void show(Player player) {
-        // Limpar entidades existentes antes de exibir novamente
         hide(player);
 
-        // Exibir as linhas do holograma
         double yOffset = 0;
         for (String line : lines) {
             int entityId = PacketUtils.nextEntityId();
             entityIds.add(entityId);
 
-            // Enviar pacotes para criar o holograma
             PacketUtils.sendSpawnEntityPacket(player, entityId, location.clone().add(0, yOffset, 0));
             PacketUtils.sendEntityMetadataPacket(player, entityId, line);
 
-            yOffset -= 0.25; // Espaçamento entre as linhas
+            yOffset -= 0.25;
         }
     }
 
     public void hide(Player player) {
         for (int entityId : entityIds) {
-            // Enviar pacotes para remover o holograma
             PacketUtils.sendDestroyEntityPacket(player, entityId);
         }
         entityIds.clear();
