@@ -6,3 +6,4 @@ description: A plugin that allows you to deliver items to players.
 commands:
   delivery:
   create:
+  hologram:

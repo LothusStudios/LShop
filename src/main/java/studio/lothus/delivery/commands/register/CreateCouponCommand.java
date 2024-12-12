@@ -28,7 +28,7 @@ public class CreateCouponCommand extends BukkitCommand {
         try {
             discount = Double.parseDouble(args[1]);
         } catch (NumberFormatException e) {
-            sender.sendMessage("§c§lERROR §c O desconto precisa ser um número válido.");
+            sender.sendMessage("§c§lERROR! §cO desconto precisa ser um número válido.");
             return;
         }
 
